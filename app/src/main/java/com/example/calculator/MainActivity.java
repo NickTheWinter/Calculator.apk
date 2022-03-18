@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView result;
-
+    Spinner spinner;
+    String[] strArray;
     Button num0;
     Button num1;
     Button num2;
@@ -40,7 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        spinner = findViewById(R.id.array_spinner);
+        strArray = new String[15];
+        for (int i = 0; i < strArray.length; i++){
+            strArray[i] = "";
+        }
         act="";
         result = findViewById(R.id.result);
         num0 = findViewById(R.id.num0);
@@ -84,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numSqrt.setOnClickListener(this);
         numSqr.setOnClickListener(this);
         numEqual.setOnClickListener(this);
+
+
 
     }
 
@@ -132,15 +141,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (act){
                     case "+":
                         result.setText(String.format("%f",firstNum+secondNum));
+                        for (int i = strArray.length - 1; i > 0; i--){
+                            strArray[i] = strArray[i-1];
+                        }
+
+                        strArray[0] = ""+(firstNum + secondNum);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
+                        spinner.setAdapter(adapter);
                         break;
                     case "-":
                         result.setText(String.format("%f",firstNum-secondNum));
+                        for (int i = 1; i < strArray.length; i++){
+                            strArray[i] = strArray[i-1];
+                        }
+                        strArray[0] = firstNum +" - "+secondNum+" = "+ (firstNum - secondNum);
+                        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
+                        spinner.setAdapter(adapter);
                         break;
                     case "х":
                         result.setText(String.format("%f",firstNum*secondNum));
+                        for (int i = 1; i < strArray.length; i++){
+                            strArray[i] = strArray[i-1];
+                        }
+                        strArray[0] = firstNum +" * "+secondNum+" = "+ (firstNum * secondNum);
+                        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
+                        spinner.setAdapter(adapter);
                         break;
                     case "/":
                         result.setText(String.format("%f",firstNum/secondNum));
+                        for (int i = 1; i < strArray.length; i++){
+                            strArray[i] = strArray[i-1];
+                        }
+
+                        strArray[0] = firstNum +" / "+secondNum+" = "+(firstNum / secondNum);
+                        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
+                        spinner.setAdapter(adapter);
                         break;
                 }
 
