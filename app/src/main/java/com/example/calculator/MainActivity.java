@@ -151,29 +151,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case "-":
                         result.setText(String.format("%f",firstNum-secondNum));
-                        for (int i = 1; i < strArray.length; i++){
+                        for (int i = strArray.length - 1; i > 0; i--){
                             strArray[i] = strArray[i-1];
                         }
-                        strArray[0] = firstNum +" - "+secondNum+" = "+ (firstNum - secondNum);
+
+                        strArray[0] = ""+(firstNum - secondNum);
                         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
                         spinner.setAdapter(adapter);
                         break;
                     case "х":
                         result.setText(String.format("%f",firstNum*secondNum));
-                        for (int i = 1; i < strArray.length; i++){
+                        for (int i = strArray.length - 1; i > 0; i--){
                             strArray[i] = strArray[i-1];
                         }
-                        strArray[0] = firstNum +" * "+secondNum+" = "+ (firstNum * secondNum);
+
+                        strArray[0] = ""+(firstNum * secondNum);
                         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
                         spinner.setAdapter(adapter);
                         break;
                     case "/":
                         result.setText(String.format("%f",firstNum/secondNum));
-                        for (int i = 1; i < strArray.length; i++){
+                        for (int i = strArray.length - 1; i > 0; i--){
                             strArray[i] = strArray[i-1];
                         }
 
-                        strArray[0] = firstNum +" / "+secondNum+" = "+(firstNum / secondNum);
+                        strArray[0] = ""+(firstNum / secondNum);
                         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,strArray);
                         spinner.setAdapter(adapter);
                         break;
